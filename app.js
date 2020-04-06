@@ -1,7 +1,12 @@
+// Начало проекта 6,04,20
+
+
 let myCanvas = document.getElementById("my_canvas");
 let ctx = myCanvas.getContext("2d");
-let appleX = 0;
-let appleY = 300;
+let snakeX = 0;
+let snakeY = 300;
+let cleaner = [];
+let snakeLong = 0;
 let snakeLongX = 20 * 6;
 let snakeLongY = 20 * 6;
 
@@ -9,47 +14,62 @@ myCanvas.width = 800;
 myCanvas.height = 600;
 ctx.fillStyle = 'black';
 ctx.fillRect(0, 0, myCanvas.width, myCanvas.height);
-let alligmentX = 1;
-let alligmentY = 0;
+let directionX = 1;
+let directionY = 0;
 
 function drawPlayer(){
-	ctx.fillStyle = 'red';
-	ctx.fillRect(appleX, appleY, 20, 20);
-	appleX += 20 * alligmentX;
-	appleY += 20 * alligmentY;
+	ctx.fillStyle = 'green';
+	ctx.fillRect(snakeX, snakeY, 20, 20);
+	if (cleaner.length < 10){
+		cleaner.push([snakeX, snakeY]);		
+	}
+	snakeX += 20 * directionX;
+	snakeY += 20 * directionY;
+	if (cleaner.length >= 10){
+		ctx.fillStyle = 'yellow';
+		ctx.fillRect(cleaner[0][0], cleaner[0][1], 20, 20);
+		//ctx.fillRect(200,300, 20, 20);
+		console.log(cleaner[0])
+		cleaner.shift();
+
+	}
+
 	ctx.fillStyle = 'black';
 	
-	ctx.fillRect(appleX - (snakeLongX*alligmentX), appleY - (snakeLongY*alligmentY), 20, 20);
+	//ctx.fillRect(appleX - (snakeLongX*alligmentX), appleY - (snakeLongY*alligmentY), 20, 20);
 
 
-	(appleX > myCanvas.width) ? appleX = 0: true;
-	(appleX < 0) ? appleX = myCanvas.width: true;
-	(appleY > myCanvas.height) ? appleY = 0: true;
-	(appleY < 0) ? appleY = myCanvas.height: true;
+	(snakeX > myCanvas.width) ? snakeX = 0: true;
+	(snakeX < 0) ? snakeX = myCanvas.width: true;
+	(snakeY > myCanvas.height) ? snakeY = 0: true;
+	(snakeY < 0) ? snakeY = myCanvas.height: true;
 }
 
-function keyMovePlayer(e){
+function keyMovePlayer(e){	
 	switch (e.keyCode) {
 		case 37:
 			console.log(e.keyCode);
-			alligmentX = -1;
-			alligmentY = 0;			
+			directionX = -1;
+			directionY = 0;			
 			break;
 		case 38:
-			console.log(e.keyCode);
-			alligmentY = -1;
-			alligmentX = 0;		
+			console.log(e.keyCode);			
+			directionX = 0;	
+			directionY = -1;	
 			break;	
 		case 39:
 			console.log(e.keyCode);
-			alligmentX = 1;
-			alligmentY = 0;			
+			directionX = 1;
+			directionY = 0;			
 			break;
 		case 40:
 			console.log(e.keyCode);
-			alligmentY = 1;
-			alligmentX = 0;		
+			directionX = 0;
+			directionY = 1;		
 			break;	
+		case 32:
+			console.log(cleaner.length);
+
 	}	
 	//drawPlayer();		
 }
