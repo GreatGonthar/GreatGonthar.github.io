@@ -6,7 +6,10 @@ let ctx = myCanvas.getContext("2d");
 let snakeX = 0;
 let snakeY = 300;
 let cleaner = [];
-let snakeLong = 20;
+let snakeLong = 5;
+let appleX;
+let appleY;
+let numbersApple = 0;
 
 
 myCanvas.width = 800;
@@ -18,9 +21,10 @@ let directionY = 0;
 
 function mainLoop(){	
 	death();
-	apple();	
+		apple();	
 	drawPlayer();
 	drawCleaner();
+
 }
 
 function drawPlayer(){
@@ -61,11 +65,22 @@ function death(){
 }	
 
 function apple(){
-	let appleX = Math.floor(Math.random()*(myCanvas.width/20))*20;
-	let appleY = Math.floor(Math.random()*(myCanvas.height/20))*20;
-	console.log(appleX)
+	if (numbersApple == 0){
+	appleX = Math.floor(Math.random()*(myCanvas.width/20))*20;
+	appleY = Math.floor(Math.random()*(myCanvas.height/20))*20;
 	ctx.fillStyle = 'red';
-	ctx.fillRect(appleX, appleY, 20, 20);			
+	ctx.fillRect(appleX, appleY, 20, 20);	
+	numbersApple = 1;
+	}
+
+	if (snakeX == appleX && snakeY == appleY){
+	console.log(appleX, snakeX)
+	numbersApple = 0;
+	snakeLong++;
+	}
+	
+	//console.log(appleX, snakeX)
+
 }
 
 function keyMovePlayer(e){	
