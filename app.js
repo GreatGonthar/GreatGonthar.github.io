@@ -16,8 +16,14 @@ ctx.fillRect(0, 0, myCanvas.width, myCanvas.height);
 let directionX = 1;
 let directionY = 0;
 
-function drawPlayer(){
+function mainLoop(){	
 	death();
+	apple();	
+	drawPlayer();
+	drawCleaner();
+}
+
+function drawPlayer(){
 	ctx.fillStyle = 'green';
 	ctx.fillRect(snakeX, snakeY, 20, 20);
 	if (cleaner.length < snakeLong){
@@ -29,19 +35,17 @@ function drawPlayer(){
 	(snakeX > myCanvas.width) ? snakeX = 0: true;
 	(snakeX < 0) ? snakeX = myCanvas.width: true;
 	(snakeY > myCanvas.height) ? snakeY = 0: true;
-	(snakeY < 0) ? snakeY = myCanvas.height: true;
-	drawCleaner();
-	
+	(snakeY < 0) ? snakeY = myCanvas.height: true;		
 }
 
 function drawCleaner(){	
 	if (cleaner.length >= snakeLong){
 		ctx.fillStyle = 'black';
 		ctx.fillRect(cleaner[0][0], cleaner[0][1], 20, 20);				
-		cleaner.shift();
-		
+		cleaner.shift();		
 	}
 }
+
 function death(){
 	for (let body of cleaner) {
 		if (snakeX == body[0] && snakeY == body[1]){
@@ -55,6 +59,14 @@ function death(){
   		}
 	}
 }	
+
+function apple(){
+	let appleX = Math.floor(Math.random()*(myCanvas.width/20))*20;
+	let appleY = Math.floor(Math.random()*(myCanvas.height/20))*20;
+	console.log(appleX)
+	ctx.fillStyle = 'red';
+	ctx.fillRect(appleX, appleY, 20, 20);			
+}
 
 function keyMovePlayer(e){	
 	switch (e.keyCode) {
@@ -84,4 +96,4 @@ function keyMovePlayer(e){
 }
 addEventListener("keydown", keyMovePlayer);
 
-setInterval(drawPlayer, 100);
+setInterval(mainLoop, 100);
