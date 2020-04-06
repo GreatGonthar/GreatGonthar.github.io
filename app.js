@@ -65,12 +65,12 @@ function death(){
 }	
 
 function apple(){
-	if (numbersApple == 0){
+	if (numbersApple < 3){
 	appleX = Math.floor(Math.random()*(myCanvas.width/20))*20;
 	appleY = Math.floor(Math.random()*(myCanvas.height/20))*20;
 	ctx.fillStyle = 'red';
 	ctx.fillRect(appleX, appleY, 20, 20);	
-	numbersApple = 1;
+	numbersApple += 1;
 	}
 
 	if (snakeX == appleX && snakeY == appleY){
