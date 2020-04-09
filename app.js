@@ -19,33 +19,46 @@ myCanvas.height = 600;
 ctx.fillStyle = 'black';
 ctx.fillRect(0, 0, myCanvas.width, myCanvas.height);
 let directionX = 1;
-let directionY = 1;
+let directionY = 0;
 
 function mainLoop(){	
-	//death();
-	//apple();	
+	death2();
+			
 	//drawPlayer();
 	//drawCleaner();
 	drawPlayer2();
+	apple();
+
 }
 
 function drawPlayer2(){
+
+
 	ctx.fillStyle = 'black';
 	ctx.fillRect(0, 0, myCanvas.width, myCanvas.height);
 	let snakeXYmax = snakeLong2[snakeLong2.length-1];	
-	snakeLong2.push([snakeXYmax[0]+(20 * directionX), snakeXYmax[1]+(20 * directionY)]);	
-	snakeLong2.shift();	
+	snakeX = snakeLong2[snakeLong2.length-1][0];
+	snakeY = snakeLong2[snakeLong2.length-1][1]
+	snakeLong2.push([snakeX+(20 * directionX), snakeY+(20 * directionY)]);	
+	
 
-	(snakeXYmax[0] > myCanvas.width) ? snakeLong2[snakeLong2.length-1][0] = 0: true;
-	(snakeXYmax[0] < 0) ? snakeLong2[snakeLong2.length-1][0] = myCanvas.width: true;
-	(snakeXYmax[1] > myCanvas.height) ? snakeLong2[snakeLong2.length-1][1] = 0: true;
-	(snakeXYmax[1] < 0) ? snakeLong2[snakeLong2.length-1][1] = myCanvas.height: true;	
-	console.log(snakeLong2[2][0]);
+	if (snakeX != appleX || snakeY != appleY){snakeLong2.shift()};	
 
-		for (let i = 0; i < 3; i++){
+
+		for (let i = 0; i < (snakeLong2.length-1); i++){
 		ctx.fillStyle = 'green';
-		ctx.fillRect(snakeLong2[i][0], snakeLong2[i][1], 20, 20);		
+		ctx.fillRect(snakeLong2[i][0], snakeLong2[i][1], 20, 20);	
+
 	}
+
+	(snakeX > myCanvas.width) ? snakeLong2[snakeLong2.length-1][0] = 0: true;
+	(snakeX < 0) ? snakeLong2[snakeLong2.length-1][0] = myCanvas.width: true;
+	(snakeY > myCanvas.height) ? snakeLong2[snakeLong2.length-1][1] = 0: true;
+	(snakeY < 0) ? snakeLong2[snakeLong2.length-1][1] = myCanvas.height: true;	
+	//console.log(snakeX);
+
+
+
 	
 
 }
@@ -73,6 +86,15 @@ function drawCleaner(){
 	}
 }
 
+function death2(){
+	for (let i = 0; i < (snakeLong2.length-1); i++){
+		if (snakeLong2[snakeLong2.length-1][0] == snakeLong2[i][0] && snakeLong2[snakeLong2.length-1][1] == snakeLong2[i][1]){
+			alert('конец');
+		}
+	}
+}
+
+
 function death(){
 	for (let body of cleaner) {
 		if (snakeX == body[0] && snakeY == body[1]){
@@ -88,20 +110,18 @@ function death(){
 }	
 
 function apple(){
-	if (numbersApple < 3){
+	if (snakeX == appleX && snakeY == appleY){
+	numbersApple = 0;	
+	}	
+
+	if (numbersApple < 1){
 	appleX = Math.floor(Math.random()*(myCanvas.width/20))*20;
-	appleY = Math.floor(Math.random()*(myCanvas.height/20))*20;
-	ctx.fillStyle = 'red';
-	ctx.fillRect(appleX, appleY, 20, 20);	
+	appleY = Math.floor(Math.random()*(myCanvas.height/20))*20;	
 	numbersApple += 1;
 	}
+	ctx.fillStyle = 'red';
+	ctx.fillRect(appleX, appleY, 20, 20);	
 
-	if (snakeX == appleX && snakeY == appleY){
-	console.log(appleX, snakeX)
-	numbersApple = 0;
-	snakeLong++;
-	}
-	
 	//console.log(appleX, snakeX)
 
 }
@@ -128,8 +148,6 @@ function keyMovePlayer(e){
 			(directionY != -1) ? directionY = 1: true;
 			directionX = 0;
 			break;	
-		case 32:
-			console.log(cleaner.length);
 	}		
 }
 addEventListener("keydown", keyMovePlayer);
