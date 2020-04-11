@@ -65,7 +65,7 @@ function death(){
 }	
 
 function apple(){
-	if (numbersApple < 3){
+	if (numbersApple < 1){
 	appleX = Math.floor(Math.random()*(myCanvas.width/20))*20;
 	appleY = Math.floor(Math.random()*(myCanvas.height/20))*20;
 	ctx.fillStyle = 'red';
