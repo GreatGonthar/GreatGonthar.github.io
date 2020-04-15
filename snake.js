@@ -95,5 +95,28 @@ function keyMovePlayer(e){
 	}		
 }
 addEventListener("keydown", keyMovePlayer);
+// Проверить доступность и назначить обработчик событий датчика-акселерометра
+if (window.DeviceMotionEvent) {
+    window.addEventListener('devicemotion', motion_hook, false);
+}
+else {
+    // DeviceMotionEvent не поддерживается
+}
+ 
+// Обработчик события DeviceMotionEvent
+function motion_hook(event) {
+    console.log('Accelerometer: '
+        + 'X=' + event.accelerationIncludingGravity.x
+        + 'Y=' + event.accelerationIncludingGravity.y
+        + 'Z=' + event.accelerationIncludingGravity.z
+    );
+    if (event.accelerationIncludingGravity.x){
+    	directionX = event.accelerationIncludingGravity.x/event.accelerationIncludingGravity.x
+    }
+    if (event.accelerationIncludingGravity.y){
+    	directionY = event.accelerationIncludingGravity.y/event.accelerationIncludingGravity.y
+    }
+}
+
 
 setInterval(mainLoop, 100);
