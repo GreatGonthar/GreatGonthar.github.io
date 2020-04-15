@@ -110,12 +110,11 @@ function motion_hook(event) {
         + 'Y=' + event.accelerationIncludingGravity.y
         + 'Z=' + event.accelerationIncludingGravity.z
     );
-    if (event.accelerationIncludingGravity.x){
-    	directionX = event.accelerationIncludingGravity.x/event.accelerationIncludingGravity.x
-    }
-    if (event.accelerationIncludingGravity.y){
-    	directionY = event.accelerationIncludingGravity.y/event.accelerationIncludingGravity.y
-    }
+    if (event.accelerationIncludingGravity.x > 0){directionX = 1}
+    if (event.accelerationIncludingGravity.x < 0){directionX = -1}
+    if (event.accelerationIncludingGravity.y > 0){directionX = 1}
+    if (event.accelerationIncludingGravity.y > 0){directionX = -1}	
+    
 }
 
 
