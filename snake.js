@@ -36,7 +36,7 @@ function drawPlayer(){
 	if (snakeX != appleX || snakeY != appleY){snakeLong.shift()};	
 
 		for (let i = 0; i < (snakeLong.length-1); i++){
-			ctx.fillStyle = 'green';
+			ctx.fillStyle = 'white';
 			ctx.fillRect(snakeLong[i][0], snakeLong[i][1], 20, 20);	
 		}
 
@@ -110,10 +110,10 @@ function motion_hook(event) {
         + 'Y=' + event.accelerationIncludingGravity.y
         + 'Z=' + event.accelerationIncludingGravity.z
     );
-    if (event.accelerationIncludingGravity.x > 0){directionX = 1}
-    if (event.accelerationIncludingGravity.x < 0){directionX = -1}
-    if (event.accelerationIncludingGravity.y > 0){directionX = 1}
-    if (event.accelerationIncludingGravity.y > 0){directionX = -1}	
+    if (event.accelerationIncludingGravity.x > 90){directionX = 1}
+    if (event.accelerationIncludingGravity.x < 90){directionX = -1}
+    if (event.accelerationIncludingGravity.y > 90){directionX = 1}
+    if (event.accelerationIncludingGravity.y > 90){directionX = -1}	
     
 }
 
